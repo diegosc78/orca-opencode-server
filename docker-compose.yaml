@@ -1,0 +1,18 @@
+services:
+  orca:
+    build: .
+    ports:
+      - "6768:6768"
+    environment:
+      # API keys de OpenCode/proveedores
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY}
+      OPENAI_API_KEY: ${OPENAI_API_KEY}
+
+    volumes:
+      - orca-home:/home/orca
+      - workspace:/workspace
+
+    restart: unless-stopped
+volumes:
+  orca-home:
+  workspace:
