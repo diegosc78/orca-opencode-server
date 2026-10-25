@@ -7,6 +7,8 @@ A Docker container that runs [Orca](https://github.com/stablyai/orca) with [Open
 This project provides a containerized environment for:
 - **Orca**: A multi-agent orchestrator for coordinating AI agents
 - **OpenCode**: An AI-powered code generation and testing tool
+- **ClaudeCode**: An AI-powered code generation and testing tool
+- **OpenSpec**: A spec-driven development tool
 - **Python 3.14**: For code execution and testing
 - **Node.js 22**: For JavaScript/TypeScript code generation and npm packages
 

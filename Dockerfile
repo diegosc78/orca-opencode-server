@@ -1,11 +1,15 @@
 FROM python:3.14-slim
 
-# https://github.com/stablyai/orca/releases/download/v1.4.205/orca-linux.AppImage
-# https://www.npmjs.com/package/opencode-ai/v/1.18.31
+# https://github.com/stablyai/orca/releases/download/v1.4.240/orca-linux.AppImage
+# https://www.npmjs.com/package/opencode-ai/v/1.19.4
 # https://nodejs.org/en/download/
-ARG ORCA_VERSION=v1.4.205
-ARG OPENCODE_VERSION=1.18.31
+# https://www.npmjs.com/package/@anthropic-ai/claude-code
+# https://www.npmjs.com/package/@fission-ai/openspec
+ARG ORCA_VERSION=v1.4.240
+ARG OPENCODE_VERSION=1.19.4
 ARG NODE_VERSION=22
+ARG CLAUDE_CODE_VERSION=2.1.310
+ARG OPENSPEC_VERSION=1.15.0
 
 ENV DEBIAN_FRONTEND=noninteractive
 ENV HOME=/home/orca
@@ -54,9 +58,11 @@ RUN useradd --create-home --shell /bin/bash orca && \
     chown -R orca:orca /home/orca /workspace && \
     chmod -R 755 /home/orca/.local && \
     chmod -R 755 /home/orca/.config && \
-    npm i -g "opencode-ai@${OPENCODE_VERSION}" && \
+    npm i -g "opencode-ai@${OPENCODE_VERSION}" "@anthropic-ai/claude-code@${CLAUDE_CODE_VERSION}" "@fission-ai/openspec@${OPENSPEC_VERSION}" && \
     npm cache clean --force && \
-    echo "opencode version ${OPENCODE_VERSION} installed successfully."
+    echo "opencode version ${OPENCODE_VERSION} installed successfully." && \
+    claude --version && \
+    openspec --version
 
 USER orca
 WORKDIR /workspace
