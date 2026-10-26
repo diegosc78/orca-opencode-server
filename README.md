@@ -24,14 +24,14 @@ This project provides a containerized environment for:
 
 ```bash
 # Build with default versions
-docker build -t orca-opencode:latest .
+docker build -t ponte124/myorca-serve:26.10.25 .
 
 # Build with custom versions
 docker build \
   --build-arg ORCA_VERSION=v1.4.205 \
   --build-arg OPENCODE_VERSION=1.18.31 \
   --build-arg NODE_VERSION=22 \
-  -t orca-opencode:latest .
+  -t ponte124/myorca-serve:26.10.25 .
 ```
 
 ### Run the Container
@@ -39,26 +39,26 @@ docker build \
 **Basic run:**
 ```bash
 docker run -d \
-  --name orca-opencode \
+  --name myorca-serve \
   -p 6768:6768 \
-  orca-opencode:latest
+  ponte124/myorca-serve:26.10.25
 ```
 
 **With workspace volume (recommended for development):**
 ```bash
 docker run -d \
-  --name orca-opencode \
+  --name myorca-serve \
   -p 6768:6768 \
   -v $(pwd)/workspace:/workspace \
-  orca-opencode:latest
+  ponte124/myorca-serve:26.10.25
 ```
 
 **Interactive mode (for debugging):**
 ```bash
 docker run -it \
-  --name orca-opencode \
+  --name myorca-serve \
   -p 6768:6768 \
-  orca-opencode:latest
+  ponte124/myorca-serve:26.10.25
 ```
 
 ### Access the Service
@@ -67,17 +67,17 @@ The service runs on port **6768** by default.
 
 **Check if it's running:**
 ```bash
-docker ps | grep orca-opencode
+docker ps | grep myorca-serve
 ```
 
 **View logs:**
 ```bash
-docker logs -f orca-opencode
+docker logs -f myorca-serve
 ```
 
 **Enter the container:**
 ```bash
-docker exec -it orca-opencode bash
+docker exec -it myorca-serve bash
 ```
 
 ## Testing the Service
@@ -89,7 +89,7 @@ docker exec -it orca-opencode bash
 curl -v http://localhost:6768/
 
 # Check if opencode CLI is working
-docker exec orca-opencode opencode --version
+docker exec myorca-serve opencode --version
 ```
 
 ### Using OpenCode
@@ -98,7 +98,7 @@ Inside the container:
 
 ```bash
 # Enter the container
-docker exec -it orca-opencode bash
+docker exec -it myorca-serve bash
 
 # Run opencode commands
 opencode --help
@@ -125,7 +125,7 @@ docker build \
   --build-arg ORCA_VERSION=v1.5.0 \
   --build-arg OPENCODE_VERSION=1.19.0 \
   --build-arg NODE_VERSION=20 \
-  -t orca-opencode:custom .
+  -t myorca-serve:custom .
 ```
 
 ### Environment Variables
@@ -144,7 +144,7 @@ You can override them when running:
 docker run -d \
   -e "HOME=/home/orca" \
   -p 6768:6768 \
-  orca-opencode:latest
+  ponte124/myorca-serve:26.10.25
 ```
 
 ## Docker Compose (Optional)
@@ -155,7 +155,7 @@ Create a `docker-compose.override.yml` for local development:
 version: '3.8'
 
 services:
-  orca-opencode:
+  myorca-serve:
     build:
       context: .
       args:
@@ -206,10 +206,10 @@ docker-compose up -d
 
 ```bash
 # Check logs
-docker logs orca-opencode
+docker logs myorca-serve
 
 # Rebuild without cache
-docker build --no-cache -t orca-opencode:latest .
+docker build --no-cache -t ponte124/myorca-serve:26.10.25 .
 ```
 
 ### Permission denied errors
@@ -225,7 +225,7 @@ chmod 755 workspace
 # Use a different port
 docker run -d \
   -p 8000:6768 \
-  orca-opencode:latest
+  ponte124/myorca-serve:26.10.25
 ```
 
 Then access via `http://localhost:8000`
@@ -234,7 +234,7 @@ Then access via `http://localhost:8000`
 
 Check the logs inside the container:
 ```bash
-docker exec orca-opencode cat /home/orca/.local/share/opencode/log/opencode.log
+docker exec myorca-serve cat /home/orca/.local/share/opencode/log/opencode.log
 ```
 
 ## Development
@@ -242,15 +242,15 @@ docker exec orca-opencode cat /home/orca/.local/share/opencode/log/opencode.log
 ### Building for testing
 ```bash
 # Build and run with verbose output
-docker build --progress=plain -t orca-opencode:latest .
+docker build --progress=plain -t ponte124/myorca-serve:26.10.25 .
 ```
 
 ### Running tests
 ```bash
-docker exec orca-opencode python3 --version
-docker exec orca-opencode node --version
-docker exec orca-opencode npm --version
-docker exec orca-opencode opencode --version
+docker exec myorca-serve python3 --version
+docker exec myorca-serve node --version
+docker exec myorca-serve npm --version
+docker exec myorca-serve opencode --version
 ```
 
 ## Updating Versions
@@ -266,7 +266,7 @@ To update any component:
    ```bash
    docker build \
      --build-arg ORCA_VERSION=v1.5.0 \
-     -t orca-opencode:latest .
+     -t ponte124/myorca-serve:26.10.25 .
    ```
 
 ## Resources
